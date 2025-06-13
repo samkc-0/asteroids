@@ -9,3 +9,7 @@ class Asteroid:
     KINDS = 3
     MAX_RADIUS = MIN_RADIUS * KINDS
 
+class Player:
+    RADIUS = 20
+    SPEED = 200
+    TURN_SPEED = 360
