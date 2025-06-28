@@ -1,3 +1,4 @@
+import time
 import pygame
 import constants as k
 from player import Player
@@ -11,6 +12,13 @@ def main():
 
     clock = pygame.time.Clock()
     dt: float = 0
+
+    pygame.display.set_caption("text demo")
+
+    font = pygame.font.SysFont(
+        None, 48
+    )  # or use pygame.font.Font('path/to/font.ttf', 48)
+    game_over_text = font.render("Game over!", True, (255, 255, 255))  # white text
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -29,6 +37,16 @@ def main():
                 return
 
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.collide(player):
+                screen.blit(
+                    game_over_text,
+                    (
+                        k.Screen.WIDTH / 2 - game_over_text.get_width() / 2,
+                        k.Screen.HEIGHT / 2 - game_over_text.get_height() / 2,
+                    ),
+                )
+                sys.exit(0)
         for d in drawable:
             d.draw(screen)
 
